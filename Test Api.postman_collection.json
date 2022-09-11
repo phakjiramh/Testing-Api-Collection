@@ -1,0 +1,236 @@
+{
+	"info": {
+		"_postman_id": "09175112-0721-45f5-9baa-640e9e4aba1c",
+		"name": "Test Api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "2503551"
+	},
+	"item": [
+		{
+			"name": "Get 1 User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Get User limit and id equal 1\", () => {",
+							"    ",
+							"    const responseJson = pm.response.json();",
+							"    // console.log('responseJson : ', responseJson)",
+							"",
+							"    // pm.expect(responseJson[0].id).to.be.a(\"number\");",
+							"    // pm.expect(responseJson[0].id).to.eql(1);",
+							"    pm.expect(responseJson).to.have.lengthOf(1);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/users?_page=1&_limit=1",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"users"
+					],
+					"query": [
+						{
+							"key": "_page",
+							"value": "1"
+						},
+						{
+							"key": "_limit",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get 5 Users",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Get User limit and id equal 1\", () => {",
+							"    ",
+							"    const responseJson = pm.response.json();",
+							"",
+							"    pm.expect(responseJson).to.have.lengthOf(5);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/posts?_page=1&_limit=5",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"posts"
+					],
+					"query": [
+						{
+							"key": "_page",
+							"value": "1"
+						},
+						{
+							"key": "_limit",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Validate Schema",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Validate Schema\", () => {",
+							"    const validSchema = {",
+							"        \"type\": \"array\",",
+							"        \"items\": {",
+							"            \"type\": \"object\",",
+							"            \"required\": [\"id\"],",
+							"            \"properties\": {",
+							"                \"id\": { type: \"number\" },",
+							"                \"name\": { type: \"string\" },",
+							"                \"username\": { type: \"string\" },",
+							"                \"email\": { type: \"string\" },",
+							"                \"address\": {",
+							"                    \"street\": { type: \"string\" },",
+							"                    \"suite\": { type: \"string\" },",
+							"                    \"city\": { type: \"string\" },",
+							"                    \"zipcode\": { type: \"string\" },",
+							"                    \"geo\": {",
+							"                        \"lat\": { type: \"string\" },",
+							"                        \"lng\": { type: \"string\" },",
+							"                    }",
+							"                },",
+							"                \"phone\": { type: \"string\" },",
+							"                \"website\": { type: \"string\" },",
+							"                \"company\": {",
+							"                    \"name\": { type: \"string\" },",
+							"                    \"catchPhrase\": { type: \"string\" },",
+							"                    \"bs\": { type: \"string\" },",
+							"                }",
+							"            }",
+							"        }",
+							"    }",
+							"",
+							"",
+							"",
+							"    const responseJson = pm.response.json();",
+							"    pm.expect(responseJson).to.have.lengthOf(1);",
+							"    pm.expect(responseJson).to.have.jsonSchema(validSchema);",
+							"",
+							"",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/users?_page=1&_limit=1",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"users"
+					],
+					"query": [
+						{
+							"key": "_page",
+							"value": "1"
+						},
+						{
+							"key": "_limit",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Example Validate Schema That Required property id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Example Validate Schema That Required property id\", () => {",
+							"    const validSchema = {",
+							"        \"type\": \"array\",",
+							"        \"items\": {",
+							"            \"type\": \"object\",",
+							"            \"required\": [\"id\"],",
+							"            \"properties\": {",
+							"                \"id\": { type: \"number\" },",
+							"                \"name\": { type: \"string\" },",
+							"            }",
+							"        }",
+							"    }",
+							"",
+							"",
+							"",
+							"    // const responseJson = pm.response.json();",
+							"    // pm.expect(responseJson).to.have.lengthOf(1);",
+							"    pm.expect([{ \"id\":1,\"name\" : \"test\" }]).to.have.jsonSchema(validSchema);",
+							"",
+							"",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/users?_page=1&_limit=1",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"users"
+					],
+					"query": [
+						{
+							"key": "_page",
+							"value": "1"
+						},
+						{
+							"key": "_limit",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
